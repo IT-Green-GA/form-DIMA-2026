@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitácora de parcela</title>
+</head>
+<body>
+  <header>
+    <h1>Bitácora de parcela</h1>
+  </header>
+
+  <main>
+    <form id="registro" class="tarjeta">
+      <div class="dos">
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input id="fecha" type="date" name="fecha" required>
+        </div>
+        <div class="campo">
+          <label for="cultivo">Cultivo</label>
+          <select id="cultivo" name="cultivo">
+            <option>Maíz</option>
+            <option>Frijol</option>
+            <option>Haba</option>
+            <option>Avena</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="parcela">Parcela</label>
+        <select id="parcela" name="parcela">
+          <option>P-077 El Cerrito</option>
+          <option>P-012 La Loma</option>
+          <option>P-031 San Diego</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="actividad">Actividad</label>
+        <select id="actividad" name="actividad">
+          <option>Observación</option>
+          <option>Riego</option>
+          <option>Fertilización</option>
+          <option>Muestreo</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="observaciones">Observaciones</label>
+        <textarea id="observaciones" name="observaciones" rows="8"></textarea>
+      </div>
+      <button type="submit">Guardar registro</button>
+      <p id="estado" class="estado" role="status"></p>
+    </form>
+
+    <section class="tarjeta tabla">
+      <table id="registros">
+        <thead>
+          <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

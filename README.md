@@ -32,12 +32,20 @@ En el hackathon, la aplicación y su base de datos se reutilizan para registrar 
 
 ## Registro de equipos
 
-El archivo `equipos.md` es la lista de equipos del curso y el primer ejercicio con pull requests. Cada integrante crea una rama, agrega su nombre debajo del nombre de su equipo, escrito en mayúsculas, y abre un pull request hacia el repositorio del curso. Si el equipo todavía no aparece, lo agrega al final:
+El archivo `equipos.md` es la lista de equipos del curso y el primer ejercicio con pull requests:
 
-```text
-## NOMBRE DEL EQUIPO
-- Nombre Apellido
-```
+1. Haz fork de este repositorio y clona tu fork: `git clone https://github.com/<tu-usuario>/form-DIMA-2026.git`.
+2. Crea una rama con tu nombre: `git switch -c agrega-<tu-nombre>`.
+3. Agrega tu nombre debajo del nombre de tu equipo, escrito en mayúsculas. Si el equipo todavía no aparece, agrégalo al final:
+
+   ```text
+   ## NOMBRE DEL EQUIPO
+   - Nombre Apellido
+   ```
+
+4. Haz commit, sube la rama a tu fork con `git push -u origin agrega-<tu-nombre>` y abre en GitHub el pull request hacia `IT-Green-GA/form-DIMA-2026`.
+
+Después del merge, el equipo sigue trabajando en la Bitácora sobre su fork.
 
 ## Qué le hace falta
 
@@ -73,7 +81,7 @@ Después, cada equipo la completa a su manera:
 
 ## Puesta en marcha
 
-1. Haz un fork del repositorio y clónalo en tu computadora.
+1. Usa el fork y el clon del registro de equipos y regresa a la rama principal: `git switch main`.
 2. Instala las dependencias:
 
    ```bash

@@ -28,6 +28,16 @@ En el hackathon, la aplicación y su base de datos se reutilizan para registrar 
 | `server.js` | Servidor de la versión construida, para `pnpm start`. |
 | `vite.config.js` | Configuración de Vite; define qué variables de `.env` llegan al navegador. |
 | `.env.example` | Nombres de las variables, sin valores. |
+| `equipos.md` | Lista de equipos del curso. |
+
+## Registro de equipos
+
+El archivo `equipos.md` es la lista de equipos del curso y el primer ejercicio con pull requests. Cada integrante crea una rama, agrega su nombre debajo del nombre de su equipo, escrito en mayúsculas, y abre un pull request hacia el repositorio del curso. Si el equipo todavía no aparece, lo agrega al final:
+
+```text
+## NOMBRE DEL EQUIPO
+- Nombre Apellido
+```
 
 ## Qué le hace falta
 

@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asistente tecnico</title>
+<style>
+  :root {
+    --fondo: #f4f4f5;
+    --tarjeta: #ffffff;
+    --texto: #18181b;
+    --tenue: #71717a;
+    --linea: #d4d4d8;
+    --verde: #16a34a;
+    --verde-claro: #dcfce7;
+    --error: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  header {
+    background: var(--tarjeta);
+    border-bottom: 1px solid var(--linea);
+    padding: 14px 20px;
+  }
+  header h1 { margin: 0; font-size: 17px; }
+  header p { margin: 2px 0 0; font-size: 13px; color: var(--tenue); }
+  .punto {
+    display: inline-block;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--tenue); margin-right: 7px;
+  }
+  .punto.on { background: var(--verde); }
+  .punto.off { background: var(--error); }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+  }
+  .vacio {
+    margin: auto;
+    text-align: center;
+    color: var(--tenue);
+    max-width: 460px;
+  }
+  .vacio strong { color: var(--texto); }
+  .burbuja {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .burbuja .hora {
+    display: block;
+    font-size: 11px; color: var(--tenue); margin-top: 5px;
+  }
+  .ia {
+    background: var(--tarjeta);
+    border: 1px solid var(--linea);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+  }
+  .tuyo {
+    background: var(--verde-claro);
+    border: 1px solid #bbf7d0;
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+  }
+  form {
+    background: var(--tarjeta);
+    border-top: 1px solid var(--linea);
+    padding: 14px 20px;
+    display: flex;
+    gap: 10px;
+  }
+  form input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid var(--linea);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  form input:focus { outline: 2px solid var(--verde); outline-offset: -1px; }
+  form button {
+    padding: 12px 24px;
+    border: 0; border-radius: 10px;
+    background: var(--verde); color: #fff;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  form button:disabled { opacity: .55; cursor: not-allowed; }
+  .aviso {
+    margin: 0; padding: 10px 20px;
+    background: #fef2f2; color: var(--error);
+    font-size: 13px; border-top: 1px solid #fecaca;
+  }
+  details {
+    background: var(--tarjeta);
+    border-top: 1px solid var(--linea);
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+  details summary { cursor: pointer; color: var(--tenue); }
+  details pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: var(--fondo);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .pdf {
+    background: var(--tarjeta);
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pdf .info { flex: 1; min-width: 0; }
+  .pdf .nombre {
+    font-weight: 600; font-size: 14px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .pdf .meta { font-size: 12px; color: var(--tenue); margin-top: 2px; }
+  .pdf a {
+    padding: 7px 14px; border: 1px solid var(--linea); border-radius: 8px;
+    text-decoration: none; color: var(--texto); font-size: 13px; white-space: nowrap;
+  }
+  .pdf a:hover { border-color: var(--tenue); }
+  .seccion-titulo {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--tenue); margin: 10px 0 0; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1><span class="punto" id="punto"></span>Asistente tecnico</h1>
+    <p id="estado">Conectando...</p>
+  </header>
+
+  <main id="mensajes">
+    <div class="vacio" id="vacio">
+      <p><strong>Consulta al asistente.</strong></p>
+      <p>El bot responde como ingeniero mecatronico y genera PDFs firmados.
+      Tambien puedes escribirle directo por Telegram con texto, una nota de voz
+      o una foto.</p>
+    </div>
+  </main>
+
+  <p class="aviso" id="aviso" hidden></p>
+
+  <details>
+    <summary>Ver el system prompt que usa el bot</summary>
+    <pre id="prompt">cargando...</pre>
+  </details>
+
+  <details>
+    <summary>Ver los PDF generados</summary>
+    <div id="pdfs" style="margin-top:10px"></div>
+  </details>
+
+  <form id="formulario">
+    <input id="entrada" placeholder="Escribe tu consulta tecnica..." autocomplete="off" required>
+    <button type="submit" id="enviar">Consultar</button>
+  </form>
+
+<script>
+const $mensajes = document.getElementById("mensajes");
+const $vacio = document.getElementById("vacio");
+const $aviso = document.getElementById("aviso");
+const $punto = document.getElementById("punto");
+const $estado = document.getElementById("estado");
+const $form = document.getElementById("formulario");
+const $entrada = document.getElementById("entrada");
+const $enviar = document.getElementById("enviar");
+const $pdfs = document.getElementById("pdfs");
+
+let vistos = new Set();
+
+function claveDe(m) {
+  return m.de + "|" + m.hora + "|" + m.texto;
+}
+
+function mostrarAviso(texto) {
+  $aviso.textContent = texto;
+  $aviso.hidden = !texto;
+}
+
+function hora() {
+  return new Date().toLocaleTimeString("es-MX", { hour12: false });
+}
+
+function agregar(clase, texto) {
+  $vacio.hidden = true;
+  const div = document.createElement("div");
+  div.className = "burbuja " + clase;
+  div.textContent = texto;
+  const h = document.createElement("span");
+  h.className = "hora";
+  h.textContent = hora();
+  div.appendChild(h);
+  $mensajes.appendChild(div);
+  $mensajes.scrollTop = $mensajes.scrollHeight;
+}
+
+function pintar(mensajes) {
+  const nuevos = [];
+  for (const m of mensajes) {
+    const clave = claveDe(m);
+    if (vistos.has(clave)) continue;
+    vistos.add(clave);
+    nuevos.push(m);
+  }
+  if (nuevos.length === 0) return;
+  $vacio.hidden = true;
+  for (const m of nuevos) agregar(m.de === "web" ? "tuyo" : "ia", m.texto);
+}
+
+async function cargarEstado() {
+  try {
+    const bot = await (await fetch("/api/estado")).json();
+    if (bot.conectado && bot.ia) {
+      $punto.className = "punto on";
+      $estado.textContent = bot.bot + " - " + bot.modelo;
+    } else if (bot.conectado) {
+      $punto.className = "punto off";
+      $estado.textContent = bot.bot + " - sin llave de IA";
+    } else {
+      $punto.className = "punto off";
+      $estado.textContent = bot.error || "Sin conexion";
+    }
+  } catch (e) {
+    $punto.className = "punto off";
+    $estado.textContent = "Servidor no disponible";
+  }
+}
+
+async function cargarPrompt() {
+  try {
+    const r = await fetch("/api/prompt");
+    document.getElementById("prompt").textContent = await r.text();
+  } catch (e) {
+    document.getElementById("prompt").textContent = "No se pudo cargar el prompt.";
+  }
+}
+
+async function cargarPdfs() {
+  try {
+    const r = await fetch("/api/pdfs");
+    const datos = await r.json();
+    $pdfs.replaceChildren();
+    if (!datos.pdfs || datos.pdfs.length === 0) {
+      const p = document.createElement("p");
+      p.style.color = "var(--tenue)";
+      p.textContent = "Todavia no hay PDF generados.";
+      $pdfs.appendChild(p);
+      return;
+    }
+    for (const pdf of datos.pdfs) {
+      const fila = document.createElement("div");
+      fila.className = "pdf";
+      const info = document.createElement("div");
+      info.className = "info";
+      const nombre = document.createElement("div");
+      nombre.className = "nombre";
+      nombre.textContent = pdf.nombre;
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = pdf.fecha + " - " + Math.round(pdf.tamano / 1024) + " KB";
+      info.appendChild(nombre);
+      info.appendChild(meta);
+      const enlace = document.createElement("a");
+      enlace.href = "/pdfs/" + encodeURIComponent(pdf.nombre);
+      enlace.textContent = "Abrir";
+      enlace.target = "_blank";
+      fila.appendChild(info);
+      fila.appendChild(enlace);
+      $pdfs.appendChild(fila);
+    }
+  } catch (e) {
+    $pdfs.textContent = "No se pudieron cargar los PDF.";
+  }
+}
+
+$form.addEventListener("submit", async (evento) => {
+  evento.preventDefault();
+  const pregunta = $entrada.value.trim();
+  if (!pregunta) return;
+
+  agregar("tuyo", pregunta);
+  $entrada.value = "";
+  $enviar.disabled = true;
+  mostrarAviso("");
+
+  try {
+    const r = await fetch("/api/preguntar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pregunta }),
+    });
+    const datos = await r.json();
+    if (!r.ok) {
+      mostrarAviso(datos.error || "No se pudo obtener respuesta.");
+    } else {
+      agregar("ia", datos.respuesta);
+    }
+  } catch (e) {
+    mostrarAviso("No se pudo consultar: " + e.message);
+  } finally {
+    $enviar.disabled = false;
+    $entrada.focus();
+    cargarEstado();
+  }
+});
+
+cargarEstado();
+cargarPrompt();
+cargarPdfs();
+setInterval(cargarEstado, 5000);
+setInterval(cargarPdfs, 10000);
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# El bot usa reportlab para generar los PDF.
+reportlab==4.4.4
+
+# Pillow lo necesita reportlab para medir las imagenes que se incrustan.
+pillow==11.3.0
+
+# Si mas adelante agregas dependencias (por ejemplo python-telegram-bot),
+# listalas aqui con el formato:  nombre==version

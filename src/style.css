@@ -82,6 +82,13 @@ header .subtitulo {
   font-size: 14px;
   color: var(--texto-tenue);
 }
+header .autor {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--cafe-400);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
 
 /* Layout principal */
 main {

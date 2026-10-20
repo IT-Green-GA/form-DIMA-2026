@@ -1,7 +1,7 @@
 {
-  "name": "bitacora-de-parcela",
+  "name": "bitacora-de-parcela-de-axel",
   "version": "1.0.0",
-  "description": "Formulario para registrar las actividades de una parcela en una tabla de Supabase.",
+  "description": "Bitácora de parcela de Axel: formulario para registrar las actividades de una parcela en una tabla de Supabase.",
   "private": true,
   "type": "module",
   "scripts": {

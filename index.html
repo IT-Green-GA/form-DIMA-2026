@@ -7,14 +7,19 @@
 </head>
 <body>
   <header>
-    <h1>Bitácora de parcela</h1>
+    <div class="logo" aria-hidden="true">🌱</div>
+    <div>
+      <h1>Bitácora de parcela</h1>
+      <p class="subtitulo">Registro de actividades por parcela, cultivo y fecha</p>
+    </div>
   </header>
 
   <main>
     <form id="registro" class="tarjeta">
+      <h2>Nuevo registro</h2>
       <div class="dos">
         <div class="campo">
-          <label for="fecha">Fecha</label>
+          <label for="fecha">Fecha<span class="req">*</span></label>
           <input id="fecha" type="date" name="fecha" required>
         </div>
         <div class="campo">
@@ -53,6 +58,7 @@
     </form>
 
     <section class="tarjeta tabla">
+      <h2>Registros guardados</h2>
       <table id="registros">
         <thead>
           <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>

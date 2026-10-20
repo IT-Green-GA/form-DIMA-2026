@@ -1,5 +1,25 @@
-import { createClient } from "@supabase/supabase-js";
+﻿import { createClient } from "@supabase/supabase-js";
 import "./style.css";
+
+// Tema claro / oscuro; se recuerda la última elección en el navegador.
+const raiz = document.documentElement;
+const botonTema = document.querySelector("#tema");
+
+function aplicarTema(claro, guardar = true) {
+  if (claro) raiz.dataset.tema = "claro";
+  else delete raiz.dataset.tema;
+
+  botonTema.textContent = claro ? "🌙" : "☀️";
+  botonTema.setAttribute("aria-label", claro ? "Cambiar a modo oscuro" : "Cambiar a modo claro");
+  botonTema.title = claro ? "Modo oscuro" : "Modo claro";
+
+  if (guardar) localStorage.setItem("tema", claro ? "claro" : "oscuro");
+}
+
+aplicarTema(localStorage.getItem("tema") === "claro", false);
+botonTema.addEventListener("click", () => {
+  aplicarTema(raiz.dataset.tema !== "claro");
+});
 
 // La URL y la llave se leen de .env al iniciar o construir la aplicación.
 const supabase = createClient(
@@ -20,7 +40,7 @@ function mostrar(registros) {
   if (registros.length === 0) {
     const celda = filas.insertRow().insertCell();
     celda.colSpan = 5;
-    celda.textContent = "Todavía no hay registros.";
+    celda.textContent = "📭 Todavía no hay registros.";
     return;
   }
   for (const r of registros) {
@@ -39,7 +59,7 @@ async function consultar() {
     .order("fecha", { ascending: false });
   if (error) {
     console.error(error);
-    estado.textContent = "No se pudieron cargar los registros.";
+    estado.textContent = "⚠️ No se pudieron cargar los registros.";
     return;
   }
   mostrar(data);
@@ -58,10 +78,10 @@ async function guardar(evento) {
 
   if (error) {
     console.error(error);
-    estado.textContent = "No se pudo guardar el registro.";
+    estado.textContent = "⚠️ No se pudo guardar el registro.";
     return;
   }
-  estado.textContent = "Registro guardado.";
+  estado.textContent = "✅ Registro guardado.";
   formulario.observaciones.value = "";
   consultar();
 }

@@ -1,4 +1,4 @@
 # Equipos
 
 ## EQUIPO AXEL
-- Axel Amanjarrez
+- Axel Manjarrez

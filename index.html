@@ -3,62 +3,176 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bitácora de parcela</title>
+  <title>Bitácora de Parcela — IT Green | Rafael Martínez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Bitácora de parcela</h1>
+  <!-- Encabezado principal -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🌱</div>
+        <div>
+          <h1>Bitácora de Parcela</h1>
+          <p class="subtitle">IT Green • DIMA Universidad Autónoma Chapingo • <strong>Rama: Rafael Martínez</strong></p>
+        </div>
+      </div>
+      <div class="header-status">
+        <span id="badge-conexion" class="status-badge status-local">
+          <span class="pulse-dot"></span> <span id="texto-conexion">Cargando...</span>
+        </span>
+      </div>
+    </div>
   </header>
 
+  <!-- Métricas y Resumen rápido (Función 1: Dashboard de estadísticas) -->
+  <section class="metricas-container">
+    <div class="metrica-card">
+      <span class="metrica-icono">📋</span>
+      <div>
+        <span class="metrica-valor" id="total-registros">0</span>
+        <span class="metrica-etiqueta">Total Registros</span>
+      </div>
+    </div>
+    <div class="metrica-card">
+      <span class="metrica-icono">🌾</span>
+      <div>
+        <span class="metrica-valor" id="cultivo-top">-</span>
+        <span class="metrica-etiqueta">Cultivo Principal</span>
+      </div>
+    </div>
+    <div class="metrica-card">
+      <span class="metrica-icono">💧</span>
+      <div>
+        <span class="metrica-valor" id="ultimo-riego">Sin registro</span>
+        <span class="metrica-etiqueta">Último Riego</span>
+      </div>
+    </div>
+    <div class="metrica-card">
+      <span class="metrica-icono">📍</span>
+      <div>
+        <span class="metrica-valor" id="parcela-activa">-</span>
+        <span class="metrica-etiqueta">Parcela Más Activa</span>
+      </div>
+    </div>
+  </section>
+
   <main>
-    <form id="registro" class="tarjeta">
-      <div class="dos">
-        <div class="campo">
-          <label for="fecha">Fecha</label>
-          <input id="fecha" type="date" name="fecha" required>
+    <!-- Formulario de nuevo registro -->
+    <aside class="formulario-columna">
+      <form id="registro" class="tarjeta form-tarjeta">
+        <div class="form-header">
+          <h2>📝 Nuevo Registro</h2>
+          <p>Ingresa los detalles de la labor agrícola</p>
         </div>
+
+        <div class="dos">
+          <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" type="date" name="fecha" required>
+          </div>
+          <div class="campo">
+            <label for="cultivo">Cultivo</label>
+            <select id="cultivo" name="cultivo">
+              <option value="Maíz">🌽 Maíz</option>
+              <option value="Frijol">🫘 Frijol</option>
+              <option value="Haba">🌱 Haba</option>
+              <option value="Avena">🌾 Avena</option>
+              <option value="Hortalizas">🥬 Hortalizas</option>
+            </select>
+          </div>
+        </div>
+
         <div class="campo">
-          <label for="cultivo">Cultivo</label>
-          <select id="cultivo" name="cultivo">
-            <option>Maíz</option>
-            <option>Frijol</option>
-            <option>Haba</option>
-            <option>Avena</option>
+          <label for="parcela">Parcela</label>
+          <select id="parcela" name="parcela">
+            <option value="P-077 El Cerrito">P-077 El Cerrito</option>
+            <option value="P-012 La Loma">P-012 La Loma</option>
+            <option value="P-031 San Diego">P-031 San Diego</option>
+            <option value="P-005 El Huerto">P-005 El Huerto Experimental</option>
           </select>
         </div>
-      </div>
-      <div class="campo">
-        <label for="parcela">Parcela</label>
-        <select id="parcela" name="parcela">
-          <option>P-077 El Cerrito</option>
-          <option>P-012 La Loma</option>
-          <option>P-031 San Diego</option>
-        </select>
-      </div>
-      <div class="campo">
-        <label for="actividad">Actividad</label>
-        <select id="actividad" name="actividad">
-          <option>Observación</option>
-          <option>Riego</option>
-          <option>Fertilización</option>
-          <option>Muestreo</option>
-        </select>
-      </div>
-      <div class="campo">
-        <label for="observaciones">Observaciones</label>
-        <textarea id="observaciones" name="observaciones" rows="8"></textarea>
-      </div>
-      <button type="submit">Guardar registro</button>
-      <p id="estado" class="estado" role="status"></p>
-    </form>
 
-    <section class="tarjeta tabla">
-      <table id="registros">
-        <thead>
-          <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+        <div class="campo">
+          <label for="actividad">Tipo de Actividad</label>
+          <select id="actividad" name="actividad">
+            <option value="Observación">🔍 Observación / Monitoreo</option>
+            <option value="Riego">💧 Riego</option>
+            <option value="Fertilización">🧪 Fertilización</option>
+            <option value="Muestreo">🔬 Muestreo de Suelo/Plaga</option>
+            <option value="Cosecha">🧺 Cosecha</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="observaciones">Observaciones Técnicas</label>
+          <textarea id="observaciones" name="observaciones" rows="5" placeholder="Ej. Dosis de fertilizante, plagas observadas, humedad del suelo, etc."></textarea>
+        </div>
+
+        <button type="submit" id="btn-guardar" class="btn-primary">
+          <span>💾 Guardar Registro</span>
+        </button>
+        <p id="estado" class="estado" role="status"></p>
+      </form>
+    </aside>
+
+    <!-- Sección de registros y herramientas -->
+    <section class="tabla-columna">
+      <div class="tarjeta tabla-tarjeta">
+        <!-- Barra de herramientas (Función 2: Búsqueda y Filtros en tiempo real + Función 3: Exportar CSV) -->
+        <div class="tabla-toolbar">
+          <div class="toolbar-filtros">
+            <div class="input-search-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="filtro-busqueda" placeholder="Buscar por parcela u observaciones..." aria-label="Buscar registros">
+            </div>
+            <select id="filtro-cultivo" aria-label="Filtrar por cultivo">
+              <option value="todos">Todos los cultivos</option>
+              <option value="Maíz">Maíz</option>
+              <option value="Frijol">Frijol</option>
+              <option value="Haba">Haba</option>
+              <option value="Avena">Avena</option>
+              <option value="Hortalizas">Hortalizas</option>
+            </select>
+            <select id="filtro-actividad" aria-label="Filtrar por actividad">
+              <option value="todas">Todas las actividades</option>
+              <option value="Observación">Observación</option>
+              <option value="Riego">Riego</option>
+              <option value="Fertilización">Fertilización</option>
+              <option value="Muestreo">Muestreo</option>
+              <option value="Cosecha">Cosecha</option>
+            </select>
+          </div>
+          <div class="toolbar-acciones">
+            <button id="btn-exportar-csv" class="btn-secundario" title="Descargar como archivo CSV compatible con Excel">
+              📥 Exportar CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="conteo-barra">
+          <span id="contador-mostrados">Mostrando 0 registros</span>
+        </div>
+
+        <div class="tabla-scroll">
+          <table id="registros">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Parcela</th>
+                <th>Cultivo</th>
+                <th>Actividad</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" class="celda-vacia">Cargando registros...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
   </main>
 

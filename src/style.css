@@ -163,6 +163,60 @@ main {
 }
 .campo label .req { color: var(--cafe-300); margin-left: 2px; }
 
+/* Selector de tipo de fecha */
+.fecha-tipo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.opcion-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--linea);
+  border-radius: 10px;
+  background: var(--crema);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-tenue);
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+  user-select: none;
+}
+.opcion-fecha input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0; height: 0;
+}
+.opcion-fecha .opc-ico {
+  font-size: 16px;
+  line-height: 1;
+}
+.opcion-fecha:hover {
+  border-color: var(--cafe-200);
+  background: var(--blanco);
+}
+.opcion-fecha.activo {
+  border-color: var(--verde-400);
+  background: var(--verde-50);
+  color: var(--verde-600);
+  box-shadow: 0 0 0 3px rgba(123, 184, 107, .12);
+}
+.opcion-fecha input[type="radio"]:focus-visible + .opc-ico {
+  outline: 2px solid var(--verde-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.fecha-input input:disabled {
+  background: var(--linea-suave);
+  color: var(--gris-claro);
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
 /* Inputs con icono a la izquierda */
 .campo.input-icon { position: relative; }
 .campo.input-icon .ico-lado {

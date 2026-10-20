@@ -23,13 +23,27 @@
       </h2>
 
       <div class="dos">
-        <div class="campo input-icon">
-          <label for="fecha">
+        <div class="campo">
+          <label>
             <span class="ico" aria-hidden="true">📅</span>
             Fecha<span class="req">*</span>
           </label>
-          <span class="ico-lado" aria-hidden="true">📅</span>
-          <input id="fecha" type="date" name="fecha" required>
+          <div class="fecha-tipo" role="radiogroup" aria-label="Origen de la fecha">
+            <label class="opcion-fecha activo">
+              <input type="radio" name="fecha-tipo" value="hoy" checked>
+              <span class="opc-ico" aria-hidden="true">📅</span>
+              <span class="opc-texto">Hoy</span>
+            </label>
+            <label class="opcion-fecha">
+              <input type="radio" name="fecha-tipo" value="otra">
+              <span class="opc-ico" aria-hidden="true">🗓️</span>
+              <span class="opc-texto">Otra fecha</span>
+            </label>
+          </div>
+          <div class="input-icon fecha-input">
+            <span class="ico-lado" aria-hidden="true">🗓️</span>
+            <input id="fecha" type="date" name="fecha" required>
+          </div>
         </div>
         <div class="campo input-icon">
           <label for="cultivo">

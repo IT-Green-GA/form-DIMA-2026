@@ -16,14 +16,26 @@
 
   <main>
     <form id="registro" class="tarjeta">
-      <h2>Nuevo registro</h2>
+      <h2>
+        <span class="ico" aria-hidden="true">📝</span>
+        Nuevo registro
+      </h2>
+
       <div class="dos">
-        <div class="campo">
-          <label for="fecha">Fecha<span class="req">*</span></label>
+        <div class="campo input-icon">
+          <label for="fecha">
+            <span class="ico" aria-hidden="true">📅</span>
+            Fecha<span class="req">*</span>
+          </label>
+          <span class="ico-lado" aria-hidden="true">📅</span>
           <input id="fecha" type="date" name="fecha" required>
         </div>
-        <div class="campo">
-          <label for="cultivo">Cultivo</label>
+        <div class="campo input-icon">
+          <label for="cultivo">
+            <span class="ico" aria-hidden="true">🌽</span>
+            Cultivo
+          </label>
+          <span class="ico-lado" aria-hidden="true">🌽</span>
           <select id="cultivo" name="cultivo">
             <option>Maíz</option>
             <option>Frijol</option>
@@ -32,16 +44,26 @@
           </select>
         </div>
       </div>
-      <div class="campo">
-        <label for="parcela">Parcela</label>
+
+      <div class="campo input-icon">
+        <label for="parcela">
+          <span class="ico" aria-hidden="true">🗺️</span>
+          Parcela
+        </label>
+        <span class="ico-lado" aria-hidden="true">🗺️</span>
         <select id="parcela" name="parcela">
           <option>P-077 El Cerrito</option>
           <option>P-012 La Loma</option>
           <option>P-031 San Diego</option>
         </select>
       </div>
-      <div class="campo">
-        <label for="actividad">Actividad</label>
+
+      <div class="campo input-icon">
+        <label for="actividad">
+          <span class="ico" aria-hidden="true">⚙️</span>
+          Actividad
+        </label>
+        <span class="ico-lado" aria-hidden="true">⚙️</span>
         <select id="actividad" name="actividad">
           <option>Observación</option>
           <option>Riego</option>
@@ -49,16 +71,28 @@
           <option>Muestreo</option>
         </select>
       </div>
-      <div class="campo">
-        <label for="observaciones">Observaciones</label>
-        <textarea id="observaciones" name="observaciones" rows="8"></textarea>
+
+      <div class="campo input-icon">
+        <label for="observaciones">
+          <span class="ico" aria-hidden="true">💬</span>
+          Observaciones
+        </label>
+        <span class="ico-lado" aria-hidden="true">💬</span>
+        <textarea id="observaciones" name="observaciones" rows="3" placeholder="Notas de la actividad..."></textarea>
       </div>
-      <button type="submit">Guardar registro</button>
+
+      <button type="submit">
+        <span class="ico" aria-hidden="true">💾</span>
+        Guardar registro
+      </button>
       <p id="estado" class="estado" role="status"></p>
     </form>
 
     <section class="tarjeta tabla">
-      <h2>Registros guardados</h2>
+      <h2 class="registros">
+        <span class="ico" aria-hidden="true">📋</span>
+        Registros guardados
+      </h2>
       <table id="registros">
         <thead>
           <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>

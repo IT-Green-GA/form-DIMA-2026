@@ -1,26 +1,37 @@
 :root {
-  /* Paleta verde principal */
-  --verde-50:  #f0fdf4;
-  --verde-100: #dcfce7;
-  --verde-200: #bbf7d0;
-  --verde-300: #86efac;
-  --verde-400: #4ade80;
-  --verde-500: #22c55e;
-  --verde-600: #16a34a;
-  --verde-700: #15803d;
-  --verde-800: #166534;
-  --verde-900: #14532d;
+  /* Verde pastel (suave, no saturado) */
+  --verde-50:   #eaf5e6;
+  --verde-100:  #d3e8c9;
+  --verde-200:  #b8d8a7;
+  --verde-300:  #9bc887;
+  --verde-400:  #7eb86b;
+  --verde-500:  #5f9a4a;
+  --verde-600:  #4a7a3a;
 
-  /* Neutrales */
-  --fondo:        #f5fbf6;
-  --tarjeta:      #ffffff;
-  --texto:        #0f2417;
-  --texto-tenue:  #5b6b62;
-  --linea:        #d6e9dc;
-  --linea-suave:  #e8f1eb;
-  --sombra:       0 1px 2px rgba(20, 83, 45, .06), 0 4px 12px rgba(20, 83, 45, .05);
+  /* Café pastel */
+  --cafe-50:    #f5ece1;
+  --cafe-100:   #e8d7bd;
+  --cafe-200:   #d6bd97;
+  --cafe-300:   #b89b71;
+  --cafe-400:   #8a6f4d;
 
-  /* Tipografía */
+  /* Blanco y negro pastel (off-white y negro suave) */
+  --blanco:     #ffffff;
+  --crema:      #fbf9f4;
+  --marfil:     #f6f1e7;
+  --negro:      #1c1c1c;
+  --gris:       #3a3a3a;
+  --gris-claro: #7a7a7a;
+
+  /* Utilidades */
+  --linea:        #e6dfd1;
+  --linea-suave:  #efe9da;
+  --texto:        #1c1c1c;
+  --texto-tenue:  #5e574a;
+
+  /* Sombras suaves */
+  --sombra: 0 1px 2px rgba(60, 50, 30, .06), 0 6px 16px rgba(60, 50, 30, .05);
+
   --sans: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -31,13 +42,13 @@ html, body { height: 100%; }
 body {
   margin: 0;
   background:
-    radial-gradient(1200px 600px at 10% -10%, var(--verde-100) 0%, transparent 60%),
-    radial-gradient(900px 500px at 110% 10%, var(--verde-100) 0%, transparent 55%),
-    var(--fondo);
+    radial-gradient(1100px 600px at 5% -10%, var(--verde-100) 0%, transparent 60%),
+    radial-gradient(900px 500px at 110% 5%, var(--cafe-100) 0%, transparent 55%),
+    var(--marfil);
   color: var(--texto);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 /* Encabezado */
@@ -47,23 +58,24 @@ header {
   padding: 32px 16px 8px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 header .logo {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--verde-500), var(--verde-700));
-  color: #fff;
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--verde-300), var(--cafe-200));
+  color: var(--negro);
   display: grid; place-items: center;
-  font-size: 22px;
+  font-size: 26px;
   box-shadow: var(--sombra);
+  border: 1px solid var(--cafe-100);
 }
 header h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: -.01em;
-  color: var(--verde-900);
+  color: var(--negro);
 }
 header .subtitulo {
   margin: 2px 0 0;
@@ -77,151 +89,186 @@ main {
   margin: 16px auto 56px;
   padding: 0 16px;
   display: grid;
-  grid-template-columns: 400px minmax(0, 1fr);
+  grid-template-columns: 420px minmax(0, 1fr);
   gap: 24px;
   align-items: start;
 }
 
 /* Tarjetas */
 .tarjeta {
-  background: var(--tarjeta);
+  background: var(--blanco);
   border: 1px solid var(--linea);
-  border-radius: 16px;
-  padding: 22px;
+  border-radius: 18px;
+  padding: 24px;
   box-shadow: var(--sombra);
 }
 
 .tarjeta h2 {
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   font-size: 16px;
   font-weight: 700;
-  color: var(--verde-800);
+  color: var(--cafe-400);
+  text-transform: uppercase;
+  letter-spacing: .08em;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
-.tarjeta h2::before {
-  content: "";
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--verde-500);
+.tarjeta h2 .ico {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--verde-50);
+  color: var(--verde-500);
+  display: grid; place-items: center;
+  font-size: 16px;
+  border: 1px solid var(--verde-100);
+}
+.tarjeta h2.registros .ico {
+  background: var(--cafe-50);
+  color: var(--cafe-400);
+  border-color: var(--cafe-100);
 }
 
 /* Formulario */
-#registro { display: flex; flex-direction: column; gap: 14px; }
+#registro { display: flex; flex-direction: column; gap: 16px; }
 
 .dos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
 
 .campo { display: flex; flex-direction: column; gap: 6px; }
 
-.campo label, th {
+.campo label {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--verde-800);
+  color: var(--cafe-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
+.campo label .ico {
+  font-size: 14px;
+  filter: grayscale(.1);
+}
+.campo label .req { color: var(--cafe-300); margin-left: 2px; }
 
-.campo label .req { color: var(--verde-600); margin-left: 2px; }
+/* Inputs con icono a la izquierda */
+.campo.input-icon { position: relative; }
+.campo.input-icon .ico-lado {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  color: var(--cafe-300);
+}
+.campo.input-icon input,
+.campo.input-icon select,
+.campo.input-icon textarea {
+  padding-left: 40px;
+}
 
 input, select, textarea {
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   width: 100%;
-  padding: 11px 13px;
+  padding: 12px 14px;
   border: 1.5px solid var(--linea);
-  border-radius: 10px;
-  background: #fff;
-  color: var(--texto);
+  border-radius: 12px;
+  background: var(--crema);
+  color: var(--negro);
   transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
-input::placeholder, textarea::placeholder { color: #9aa7a0; }
+input::placeholder, textarea::placeholder { color: var(--gris-claro); }
 
 input:hover, select:hover, textarea:hover {
-  border-color: var(--verde-300);
+  border-color: var(--cafe-200);
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--verde-500);
-  background: var(--verde-50);
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, .15);
+  border-color: var(--verde-400);
+  background: var(--blanco);
+  box-shadow: 0 0 0 3px var(--verde-50);
 }
 
-textarea { resize: vertical; min-height: 88px; line-height: 1.45; }
+textarea { resize: vertical; min-height: 92px; line-height: 1.5; }
 
 /* Botón */
 button {
   font: inherit;
   font-size: 16px;
-  font-weight: 600;
-  padding: 13px 16px;
+  font-weight: 700;
+  padding: 14px 18px;
   border: 0;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--verde-500), var(--verde-700));
-  color: #fff;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--verde-400), var(--verde-500));
+  color: var(--blanco);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  box-shadow: 0 6px 16px rgba(22, 163, 74, .25);
+  gap: 10px;
+  letter-spacing: .02em;
+  box-shadow: 0 8px 18px rgba(95, 154, 74, .25);
   transition: transform .08s ease, box-shadow .15s ease, filter .15s ease;
 }
+button .ico { font-size: 18px; }
 button:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 8px 20px rgba(22, 163, 74, .32);
+  filter: brightness(1.04);
+  box-shadow: 0 10px 22px rgba(95, 154, 74, .32);
 }
 button:active { transform: translateY(1px); }
 button:disabled {
   opacity: .55;
   cursor: not-allowed;
-  filter: grayscale(.2);
+  filter: grayscale(.3);
   box-shadow: none;
-}
-button::before {
-  content: "✚";
-  font-weight: 700;
 }
 
 /* Estado / mensajes */
 .estado {
   margin: 0;
   font-size: 14px;
-  color: var(--texto-tenue);
-  padding: 10px 12px;
-  border-radius: 10px;
+  color: var(--cafe-400);
+  padding: 10px 14px;
+  border-radius: 12px;
   background: var(--verde-50);
   border: 1px solid var(--verde-100);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+.estado::before { content: "✓"; font-weight: 700; color: var(--verde-500); }
 .estado:empty { display: none; }
 .estado.error {
-  background: #fef2f2;
-  border-color: #fecaca;
-  color: #991b1b;
+  background: #fbe9e1;
+  border-color: #e9c8b3;
+  color: #7a4a2d;
 }
+.estado.error::before { content: "!"; color: #a8694a; }
 
 /* Tabla de registros */
-.tabla { padding: 6px 12px 12px; overflow-x: auto; }
+.tabla { padding: 6px 14px 14px; overflow-x: auto; }
 
 table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; }
 
 thead th {
-  position: sticky;
-  top: 0;
-  background: var(--verde-50);
-  color: var(--verde-800);
-  padding: 12px;
+  background: var(--cafe-50);
+  color: var(--cafe-400);
+  padding: 12px 14px;
   text-align: left;
-  border-bottom: 1.5px solid var(--verde-100);
+  border-bottom: 1.5px solid var(--cafe-100);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 th, td {
-  padding: 12px;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--linea-suave);
   text-align: left;
   vertical-align: top;
@@ -238,8 +285,27 @@ td:last-child { min-width: 220px; color: var(--texto-tenue); }
 td[colspan] {
   color: var(--texto-tenue);
   text-align: center;
-  padding: 32px 12px;
+  padding: 36px 12px;
   font-style: italic;
+}
+
+/* Etiquetas/chips para cultivos y actividades en la tabla */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--verde-50);
+  color: var(--verde-600);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--verde-100);
+}
+.chip.cafe {
+  background: var(--cafe-50);
+  color: var(--cafe-400);
+  border-color: var(--cafe-100);
 }
 
 /* Responsive */

@@ -205,6 +205,20 @@ input:focus, select:focus, textarea:focus {
 
 textarea { resize: vertical; min-height: 92px; line-height: 1.5; }
 
+/* Selects con flecha personalizada tipo acordeón */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238a6f4d' d='M6 8.5L1.5 4h9z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.campo.input-icon select { padding-left: 40px; }
+
+option { padding: 6px; font-size: 15px; }
+
 /* Botón */
 button {
   font: inherit;
@@ -308,8 +322,19 @@ td[colspan] {
   font-size: 13px;
   font-weight: 600;
   border: 1px solid var(--verde-100);
+  white-space: nowrap;
 }
 .chip.cafe {
+  background: var(--cafe-50);
+  color: var(--cafe-400);
+  border-color: var(--cafe-100);
+}
+.chip-cultivo {
+  background: var(--verde-50);
+  color: var(--verde-600);
+  border-color: var(--verde-100);
+}
+.chip-actividad {
   background: var(--cafe-50);
   color: var(--cafe-400);
   border-color: var(--cafe-100);

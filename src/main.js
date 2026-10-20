@@ -25,9 +25,27 @@ function mostrar(registros) {
   }
   for (const r of registros) {
     const fila = filas.insertRow();
-    for (const valor of [formatoFecha(r.fecha), r.parcela, r.cultivo, r.actividad, r.observaciones ?? ""]) {
-      fila.insertCell().textContent = valor;
-    }
+
+    const celdaFecha = fila.insertCell();
+    celdaFecha.textContent = formatoFecha(r.fecha);
+
+    const celdaParcela = fila.insertCell();
+    celdaParcela.textContent = r.parcela;
+
+    const celdaCultivo = fila.insertCell();
+    const chipCultivo = document.createElement("span");
+    chipCultivo.className = "chip chip-cultivo";
+    chipCultivo.textContent = r.cultivo;
+    celdaCultivo.appendChild(chipCultivo);
+
+    const celdaActividad = fila.insertCell();
+    const chipActividad = document.createElement("span");
+    chipActividad.className = "chip chip-actividad";
+    chipActividad.textContent = r.actividad;
+    celdaActividad.appendChild(chipActividad);
+
+    const celdaObs = fila.insertCell();
+    celdaObs.textContent = r.observaciones ?? "";
   }
 }
 

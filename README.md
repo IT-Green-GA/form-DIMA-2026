@@ -66,6 +66,45 @@ La plantilla no funciona por sí sola. Para que guarde y muestre registros falta
 2. **Las llaves del proyecto.** La URL y la llave publicable de Supabase van en `.env`.
 3. **Permisos de lectura y escritura.** Si la tabla tiene RLS (Row Level Security) activado sin políticas, la aplicación no puede guardar ni consultar. El detalle del error aparece en la consola del navegador; en ese caso, pide al agente que agregue políticas de lectura e inserción.
 
+## Crear la tabla `registros` desde el MCP de Supabase
+
+Si tu agente de IA tiene conectado el [MCP de Supabase](https://supabase.com/docs/guides/ai-tools/mcp), puede crear la tabla directamente con la herramienta `apply_migration`. El SQL completo, incluyendo políticas RLS, es el siguiente:
+
+```sql
+-- Tabla principal de la Bitácora de parcela
+CREATE TABLE public.registros (
+  id BIGSERIAL PRIMARY KEY,
+  fecha DATE NOT NULL,
+  parcela TEXT NOT NULL,
+  cultivo TEXT NOT NULL,
+  actividad TEXT NOT NULL,
+  observaciones TEXT,
+  creado TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Habilitar Row Level Security (Supabase lo activa por defecto)
+ALTER TABLE public.registros ENABLE ROW LEVEL SECURITY;
+
+-- Política de lectura pública
+CREATE POLICY "Lectura pública de registros"
+  ON public.registros
+  FOR SELECT
+  TO anon, authenticated
+  USING (true);
+
+-- Política de inserción pública
+CREATE POLICY "Inserción pública de registros"
+  ON public.registros
+  FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (true);
+
+-- Índice por fecha para acelerar consultas ordenadas
+CREATE INDEX idx_registros_fecha ON public.registros (fecha DESC);
+```
+
+Pídele a tu agente, por ejemplo: *"Crea en Supabase la tabla `registros` con el SQL del README del proyecto form-DIMA-2026"*. La tabla quedará lista para que la aplicación guarde y consulte registros sin pasos adicionales.
+
 Después, cada equipo la completa a su manera:
 
 - **Su diseño**, en `src/style.css`.

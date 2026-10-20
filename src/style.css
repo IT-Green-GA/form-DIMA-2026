@@ -1,11 +1,12 @@
 :root {
-  --fondo: #f4f4f5;
+  --fondo: #e6f4ea;
   --tarjeta: #ffffff;
-  --texto: #18181b;
-  --tenue: #71717a;
-  --linea: #d4d4d8;
-  --boton: #27272a;
-  --boton-activo: #3f3f46;
+  --texto: #14301f;
+  --tenue: #4f6f5a;
+  --linea: #c6e2cf;
+  --verde: #1f7a3f;
+  --boton: #2563eb;
+  --boton-activo: #1d4ed8;
   --sans: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -24,7 +25,7 @@ header {
   margin: 0 auto;
   padding: 28px 16px 0;
 }
-h1 { margin: 0; font-size: 26px; font-weight: 600; }
+h1 { margin: 0; font-size: 26px; font-weight: 600; color: var(--verde); }
 
 main {
   max-width: 1100px;
@@ -65,7 +66,7 @@ input, select, textarea {
   color: var(--texto);
 }
 textarea { resize: vertical; line-height: 1.45; }
-input:focus, select:focus, textarea:focus { outline: 2px solid var(--tenue); outline-offset: -1px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde); outline-offset: -1px; }
 
 button {
   font: inherit;
@@ -87,6 +88,8 @@ button:disabled { opacity: .5; cursor: default; }
 .tabla { padding: 6px 12px; overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 15px; }
 th, td { padding: 12px; border-bottom: 1px solid var(--linea); text-align: left; vertical-align: top; }
+thead th { color: var(--verde); }
+thead { background: #f1faf4; }
 tbody tr:last-child td { border-bottom: 0; }
 td:not(:last-child) { white-space: nowrap; }
 td:last-child { min-width: 220px; }

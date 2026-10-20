@@ -26,11 +26,16 @@ const hoyISO = () => {
 
 // Selector de fecha: "hoy" usa la fecha de la computadora; "otra" deja elegir al usuario.
 const opcionesFecha = document.querySelectorAll('.opcion-fecha');
+const inputFechaTipo = document.querySelector('input[name="fecha-tipo"]');
 const inputFecha = document.querySelector("#fecha");
 
 function actualizarFecha() {
-  const tipoSeleccionado = document.querySelector('input[name="fecha-tipo"]:checked').value;
-  opcionesFecha.forEach((op) => op.classList.toggle("activo", op.querySelector("input").checked));
+  const tipoSeleccionado = inputFechaTipo.value;
+  opcionesFecha.forEach((op) => {
+    const esActivo = op.dataset.valor === tipoSeleccionado;
+    op.classList.toggle("activo", esActivo);
+    op.setAttribute("aria-pressed", String(esActivo));
+  });
   if (tipoSeleccionado === "hoy") {
     inputFecha.value = hoyISO();
     inputFecha.disabled = true;
@@ -40,7 +45,12 @@ function actualizarFecha() {
   }
 }
 
-opcionesFecha.forEach((op) => op.querySelector("input").addEventListener("change", actualizarFecha));
+opcionesFecha.forEach((op) => {
+  op.addEventListener("click", () => {
+    inputFechaTipo.value = op.dataset.valor;
+    actualizarFecha();
+  });
+});
 
 function mostrar(registros) {
   filas.replaceChildren();

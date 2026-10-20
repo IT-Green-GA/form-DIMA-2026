@@ -173,23 +173,20 @@ main {
 .opcion-fecha {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 12px;
   border: 1.5px solid var(--linea);
   border-radius: 10px;
   background: var(--crema);
   cursor: pointer;
+  font: inherit;
   font-size: 14px;
   font-weight: 600;
   color: var(--texto-tenue);
-  transition: border-color .15s ease, background .15s ease, color .15s ease;
+  transition: border-color .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
   user-select: none;
-}
-.opcion-fecha input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 0; height: 0;
+  box-shadow: none;
 }
 .opcion-fecha .opc-ico {
   font-size: 16px;
@@ -205,10 +202,9 @@ main {
   color: var(--verde-600);
   box-shadow: 0 0 0 3px rgba(123, 184, 107, .12);
 }
-.opcion-fecha input[type="radio"]:focus-visible + .opc-ico {
+.opcion-fecha:focus-visible {
   outline: 2px solid var(--verde-400);
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline-offset: 2px;
 }
 .fecha-input input:disabled {
   background: var(--linea-suave);
@@ -399,4 +395,105 @@ td[colspan] {
   main { grid-template-columns: minmax(0, 1fr); }
   .dos { grid-template-columns: 1fr; }
   header { padding-top: 20px; }
+}
+
+/* ============================================ */
+/* TEMA OSCURO: automático según el sistema    */
+/* ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Verde pastel adaptado a fondo oscuro */
+    --verde-50:   #1a2e1f;
+    --verde-100:  #213a28;
+    --verde-200:  #2d5238;
+    --verde-300:  #3f7349;
+    --verde-400:  #5fa05a;
+    --verde-500:  #7ec074;
+    --verde-600:  #a3d594;
+
+    /* Café pastel adaptado a fondo oscuro */
+    --cafe-50:    #2a221a;
+    --cafe-100:   #3a2e22;
+    --cafe-200:   #52412f;
+    --cafe-300:   #8a6f4d;
+    --cafe-400:   #c4a484;
+
+    /* Fondo y superficies oscuras */
+    --blanco:     #1c1f1b;
+    --crema:      #232724;
+    --marfil:     #16191a;
+    --negro:      #f1ece1;
+    --gris:       #c8c2b3;
+    --gris-claro: #8a857a;
+
+    --linea:        #3a4039;
+    --linea-suave:  #2c302c;
+    --texto:        #f1ece1;
+    --texto-tenue:  #c0baa8;
+
+    --sombra: 0 1px 2px rgba(0, 0, 0, .35), 0 6px 16px rgba(0, 0, 0, .25);
+  }
+
+  body {
+    background:
+      radial-gradient(1100px 600px at 5% -10%, var(--verde-100) 0%, transparent 60%),
+      radial-gradient(900px 500px at 110% 5%, var(--cafe-100) 0%, transparent 55%),
+      var(--marfil);
+  }
+
+  /* Ajustes específicos del tema oscuro */
+  header .logo {
+    color: var(--marfil);
+  }
+
+  input, select, textarea {
+    color-scheme: dark;
+  }
+
+  /* El selector de flecha del select se ve oscuro */
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%23c4a484' d='M6 8.5L1.5 4h9z'/></svg>");
+  }
+
+  /* Estado / mensajes en oscuro */
+  .estado.error {
+    background: #3a201a;
+    border-color: #5a3024;
+    color: #e8b89e;
+  }
+
+  /* Botón principal con tono más vibrante en oscuro */
+  button {
+    box-shadow: 0 8px 18px rgba(126, 192, 116, .25);
+  }
+  button:hover {
+    box-shadow: 0 10px 22px rgba(126, 192, 116, .35);
+  }
+
+  /* Chips con mejor contraste en oscuro */
+  .chip-cultivo {
+    background: var(--verde-100);
+    color: var(--verde-600);
+    border-color: var(--verde-200);
+  }
+  .chip-actividad {
+    background: var(--cafe-100);
+    color: var(--cafe-400);
+    border-color: var(--cafe-200);
+  }
+
+  /* Selector de fecha opción activa en oscuro */
+  .opcion-fecha.activo {
+    box-shadow: 0 0 0 3px rgba(126, 192, 116, .18);
+  }
+
+  /* Cabecera de tabla */
+  thead th {
+    background: var(--cafe-100);
+    color: var(--cafe-400);
+    border-bottom-color: var(--cafe-200);
+  }
+
+  /* Hover de fila */
+  tbody tr:hover { background: var(--verde-100); }
 }

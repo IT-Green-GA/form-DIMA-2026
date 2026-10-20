@@ -24,22 +24,21 @@
 
       <div class="dos">
         <div class="campo">
-          <label>
+          <label for="fecha">
             <span class="ico" aria-hidden="true">📅</span>
             Fecha<span class="req">*</span>
           </label>
-          <div class="fecha-tipo" role="radiogroup" aria-label="Origen de la fecha">
-            <label class="opcion-fecha activo">
-              <input type="radio" name="fecha-tipo" value="hoy" checked>
+          <div class="fecha-tipo" role="group" aria-label="Origen de la fecha">
+            <button type="button" class="opcion-fecha activo" data-valor="hoy" aria-pressed="true">
               <span class="opc-ico" aria-hidden="true">📅</span>
               <span class="opc-texto">Hoy</span>
-            </label>
-            <label class="opcion-fecha">
-              <input type="radio" name="fecha-tipo" value="otra">
+            </button>
+            <button type="button" class="opcion-fecha" data-valor="otra" aria-pressed="false">
               <span class="opc-ico" aria-hidden="true">🗓️</span>
               <span class="opc-texto">Otra fecha</span>
-            </label>
+            </button>
           </div>
+          <input type="hidden" name="fecha-tipo" value="hoy">
           <div class="input-icon fecha-input">
             <span class="ico-lado" aria-hidden="true">🗓️</span>
             <input id="fecha" type="date" name="fecha" required>

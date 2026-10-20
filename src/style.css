@@ -6,6 +6,7 @@
   --linea: #d4d4d8;
   --boton: #27272a;
   --boton-activo: #3f3f46;
+  --marco: #93c5fd;
   --sans: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -24,7 +25,7 @@ header {
   margin: 0 auto;
   padding: 28px 16px 0;
 }
-h1 { margin: 0; font-size: 26px; font-weight: 600; }
+h1 { margin: 0; font-size: 26px; font-weight: 600; color: #1d4ed8; }
 
 main {
   max-width: 1100px;
@@ -38,7 +39,7 @@ main {
 
 .tarjeta {
   background: var(--tarjeta);
-  border: 1px solid var(--linea);
+  border: 2px solid var(--marco);
   border-radius: 14px;
   padding: 22px;
 }

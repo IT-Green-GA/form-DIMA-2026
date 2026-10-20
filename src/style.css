@@ -1,11 +1,15 @@
 :root {
-  --fondo: #f4f4f5;
-  --tarjeta: #ffffff;
-  --texto: #18181b;
-  --tenue: #71717a;
-  --linea: #d4d4d8;
-  --boton: #27272a;
-  --boton-activo: #3f3f46;
+  --fondo: #000000;
+  --tarjeta: #0d0d10;
+  --texto: #f5f7fa;
+  --tenue: #a9b3c1;
+  --linea: #26262e;
+  --boton: #c6ff4a;
+  --boton-activo: #e2ff8a;
+  --lima: #c6ff4a;
+  --cyan: #45e6ff;
+  --rosa: #ff5fa2;
+  --ambar: #ffd166;
   --sans: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -13,7 +17,13 @@
 
 body {
   margin: 0;
-  background: var(--fondo);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(198, 255, 74, .14), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(69, 230, 255, .14), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(255, 95, 162, .10), transparent 50%),
+    var(--fondo);
+  background-attachment: fixed;
   color: var(--texto);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -22,9 +32,28 @@ body {
 header {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 28px 16px 0;
+  padding: 44px 16px 0;
+  text-align: center;
 }
-h1 { margin: 0; font-size: 26px; font-weight: 600; }
+h1 {
+  margin: 0;
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  background: linear-gradient(90deg, var(--lima), var(--cyan) 50%, var(--rosa));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(69, 230, 255, .35));
+}
+.saludo {
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(69, 230, 255, .45);
+}
 
 main {
   max-width: 1100px;
@@ -39,8 +68,11 @@ main {
 .tarjeta {
   background: var(--tarjeta);
   border: 1px solid var(--linea);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 22px;
+  box-shadow:
+    0 0 0 1px rgba(198, 255, 74, .04),
+    0 18px 40px rgba(0, 0, 0, .65);
 }
 
 /* Formulario */
@@ -52,41 +84,54 @@ main {
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--tenue);
 }
+.campo label { color: var(--lima); text-shadow: 0 0 10px rgba(198, 255, 74, .35); }
+th { color: var(--ambar); text-shadow: 0 0 10px rgba(255, 209, 102, .3); }
 input, select, textarea {
   font: inherit;
   font-size: 16px;
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--linea);
+  border: 1px solid #2b2b35;
   border-radius: 9px;
-  background: #fff;
+  background: #08080b;
   color: var(--texto);
+  color-scheme: dark;
+  caret-color: var(--lima);
 }
+select option { background: #0d0d10; color: var(--texto); }
 textarea { resize: vertical; line-height: 1.45; }
-input:focus, select:focus, textarea:focus { outline: 2px solid var(--tenue); outline-offset: -1px; }
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid rgba(69, 230, 255, .65);
+  outline-offset: -1px;
+  border-color: var(--cyan);
+}
 
 button {
   font: inherit;
   font-size: 16px;
+  font-weight: 800;
   padding: 12px;
   border: 0;
   border-radius: 9px;
-  background: var(--boton);
-  color: #fff;
+  background: linear-gradient(135deg, var(--lima), var(--cyan));
+  color: #03120a;
   cursor: pointer;
+  box-shadow: 0 0 22px rgba(198, 255, 74, .25);
 }
-button:hover { background: var(--boton-activo); }
+button:hover { background: linear-gradient(135deg, var(--boton-activo), #8af0ff); }
 button:disabled { opacity: .5; cursor: default; }
 
-.estado { margin: 0; font-size: 14px; color: var(--tenue); }
+.estado { margin: 0; font-size: 14px; color: var(--cyan); }
 .estado:empty { display: none; }
 
 /* Registros */
 .tabla { padding: 6px 12px; overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 15px; }
 th, td { padding: 12px; border-bottom: 1px solid var(--linea); text-align: left; vertical-align: top; }
+td { color: #e8edf3; }
+tbody tr { transition: background .15s ease; }
+tbody tr:hover { background: rgba(69, 230, 255, .06); }
 tbody tr:last-child td { border-bottom: 0; }
 td:not(:last-child) { white-space: nowrap; }
 td:last-child { min-width: 220px; }

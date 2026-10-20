@@ -2,13 +2,15 @@ import { createClient } from "@supabase/supabase-js";
 import "./style.css";
 
 // La URL y la llave se leen de .env al iniciar o construir la aplicación.
-const supabase = createClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_PUBLISHABLE_KEY,
-);
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.SUPABASE_PUBLISHABLE_KEY;
+const supabaseConfigurado = Boolean(SUPABASE_URL && SUPABASE_KEY);
+const supabase = supabaseConfigurado
+  ? createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
 
 const formulario = document.querySelector("#registro");
-const boton = formulario.querySelector("button");
+const boton = formulario.querySelector('button[type="submit"]');
 const estado = document.querySelector("#estado");
 const filas = document.querySelector("#registros tbody");
 
@@ -25,12 +27,13 @@ const hoyISO = () => {
 };
 
 // Selector de fecha: "hoy" usa la fecha de la computadora; "otra" deja elegir al usuario.
-const opcionesFecha = document.querySelectorAll('.opcion-fecha');
+const opcionesFecha = document.querySelectorAll(".opcion-fecha");
 const inputFechaTipo = document.querySelector('input[name="fecha-tipo"]');
 const inputFecha = document.querySelector("#fecha");
 
 function actualizarFecha() {
-  const tipoSeleccionado = inputFechaTipo.value;
+  if (!inputFechaTipo || !inputFecha) return;
+  const tipoSeleccionado = inputFechaTipo.value || "hoy";
   opcionesFecha.forEach((op) => {
     const esActivo = op.dataset.valor === tipoSeleccionado;
     op.classList.toggle("activo", esActivo);
@@ -38,19 +41,24 @@ function actualizarFecha() {
   });
   if (tipoSeleccionado === "hoy") {
     inputFecha.value = hoyISO();
-    inputFecha.disabled = true;
+    inputFecha.readOnly = true;
   } else {
-    inputFecha.disabled = false;
+    inputFecha.readOnly = false;
     if (!inputFecha.value) inputFecha.value = hoyISO();
   }
 }
 
 opcionesFecha.forEach((op) => {
-  op.addEventListener("click", () => {
+  op.addEventListener("click", (evento) => {
+    evento.preventDefault();
     inputFechaTipo.value = op.dataset.valor;
     actualizarFecha();
   });
 });
+
+// Almacén temporal cuando Supabase no está configurado (modo demo).
+const CLAVE_LOCAL = "bitacora_registros";
+const registrosLocales = JSON.parse(localStorage.getItem(CLAVE_LOCAL) || "[]");
 
 function mostrar(registros) {
   filas.replaceChildren();
@@ -86,8 +94,11 @@ function mostrar(registros) {
   }
 }
 
-// Consultar los registros
 async function consultar() {
+  if (!supabaseConfigurado) {
+    mostrar(registrosLocales);
+    return;
+  }
   const { data, error } = await supabase
     .from("registros")
     .select("*")
@@ -103,9 +114,31 @@ async function consultar() {
 // Guardar un registro
 async function guardar(evento) {
   evento.preventDefault();
-  const { fecha, parcela, cultivo, actividad, observaciones } = Object.fromEntries(new FormData(formulario));
+
+  // Asegurarse de que la fecha siempre tenga el valor correcto.
+  if (inputFechaTipo.value === "hoy") inputFecha.value = hoyISO();
+
+  const { fecha, parcela, cultivo, actividad, observaciones } = Object.fromEntries(
+    new FormData(formulario),
+  );
+
+  if (!fecha || !parcela || !cultivo || !actividad) {
+    estado.textContent = "Faltan datos obligatorios.";
+    return;
+  }
 
   boton.disabled = true;
+
+  if (!supabaseConfigurado) {
+    registrosLocales.unshift({ fecha, parcela, cultivo, actividad, observaciones });
+    localStorage.setItem(CLAVE_LOCAL, JSON.stringify(registrosLocales));
+    estado.textContent = "Registro guardado (modo local: configura Supabase para persistencia).";
+    formulario.observaciones.value = "";
+    boton.disabled = false;
+    mostrar(registrosLocales);
+    return;
+  }
+
   const { error } = await supabase
     .from("registros")
     .insert({ fecha, parcela, cultivo, actividad, observaciones });

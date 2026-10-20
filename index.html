@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bitácora de parcela</title>
+  <title>Bitácora de parcela de Donaji</title>
 </head>
 <body>
   <header>
-    <h1>Bitácora de parcela</h1>
+    <div>
+      <h1>🍓 Bitácora de parcela de Donaji</h1>
+    </div>
   </header>
 
   <main>
@@ -24,6 +26,7 @@
             <option>Frijol</option>
             <option>Haba</option>
             <option>Avena</option>
+            <option selected>Fresa</option>
           </select>
         </div>
       </div>
@@ -46,7 +49,7 @@
       </div>
       <div class="campo">
         <label for="observaciones">Observaciones</label>
-        <textarea id="observaciones" name="observaciones" rows="8"></textarea>
+        <textarea id="observaciones" name="observaciones" rows="8">Plantas en floración abundante. Se observan flores blancas en el 80% de los tallos. Suelo con humedad adecuada. Sin presencia de plagas visibles. Se recomienda monitorear niveles de potasio en próxima visita.</textarea>
       </div>
       <button type="submit">Guardar registro</button>
       <p id="estado" class="estado" role="status"></p>
@@ -55,7 +58,7 @@
     <section class="tarjeta tabla">
       <table id="registros">
         <thead>
-          <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>
+          <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Temp. °C</th><th>Estado</th><th>Responsable</th><th>Observaciones</th></tr>
         </thead>
         <tbody></tbody>
       </table>

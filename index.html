@@ -3,11 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bitácora de parcela</title>
+  <title>Bitácora de parcela de Arturo</title>
 </head>
 <body>
   <header>
-    <h1>Bitácora de parcela</h1>
+    <div class="marca">
+      <span class="logo" aria-hidden="true">B</span>
+      <div>
+        <h1>Bitácora de parcela de Arturo</h1>
+        <p class="subtitulo">Registro de actividades de campo · DIMA 2026</p>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -53,12 +59,19 @@
     </form>
 
     <section class="tarjeta tabla">
-      <table id="registros">
-        <thead>
-          <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="tabla-cabecera">
+        <h2>Registros</h2>
+        <span class="pista">Más recientes primero</span>
+      </div>
+      <div class="tabla-scroll">
+        <table id="registros">
+          <thead>
+            <tr><th>Fecha</th><th>Parcela</th><th>Cultivo</th><th>Actividad</th><th>Observaciones</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p class="vacio">Aún no hay registros. Guarda el primero con el formulario.</p>
+      </div>
     </section>
   </main>
 

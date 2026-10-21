@@ -4,3 +4,7 @@ dist/
 .env.local
 .env.*.local
 .DS_Store
+
+# Documento con credenciales reales (contraseña SSH, token del bot, llaves).
+# No debe subirse al repositorio.
+bot-de-telegram.md

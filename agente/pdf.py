@@ -26,6 +26,9 @@ PIE = "CHTM GRACIAS"
 CARPETA_PDF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pdfs")
 
 ANCHO_MAX_IMAGEN = 15 * cm
+# Alto util de la pagina, descontando margenes y el espacio que ocupan el
+# encabezado y el pie. Una foto de celular en vertical puede exceder esto.
+ALTO_MAX_IMAGEN = 17 * cm
 
 
 def _estilos():
@@ -180,7 +183,12 @@ def generar_pdf(titulo, cuerpo, imagenes=None, ruta_destino=None):
 
 
 def _medir_imagen(ruta):
-    """Calcula el tamano final de la imagen dentro de la caja util."""
+    """Calcula el tamano final de la imagen respetando la caja de la pagina.
+
+    Escala por el ancho o por el alto, el que se pase primero. Sin esto, una
+    foto vertical de celular desborda la pagina y ReportLab aborta la
+    construccion del documento.
+    """
     try:
         from PIL import Image as PILImage
         with PILImage.open(ruta) as imagen:
@@ -188,10 +196,11 @@ def _medir_imagen(ruta):
     except Exception:
         return ANCHO_MAX_IMAGEN, ANCHO_MAX_IMAGEN / 4
 
-    if ancho > ANCHO_MAX_IMAGEN:
-        escala = ANCHO_MAX_IMAGEN / ancho
-        return ANCHO_MAX_IMAGEN, alto * escala
-    return ancho, alto
+    if ancho <= 0 or alto <= 0:
+        return ANCHO_MAX_IMAGEN, ANCHO_MAX_IMAGEN / 4
+
+    escala = min(ANCHO_MAX_IMAGEN / ancho, ALTO_MAX_IMAGEN / alto, 1.0)
+    return ancho * escala, alto * escala
 
 
 def _escapar(texto):
